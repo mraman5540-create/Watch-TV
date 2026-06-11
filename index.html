@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Zone Premium TV</title>
+    <title>Tech Zone Premium Live TV</title>
     <style>
         body { font-family: Arial, sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 15px; }
         .tv-container { max-width: 800px; margin: 0 auto; }
@@ -18,25 +18,24 @@
 <body>
 <div class="tv-container">
     <div class="video-box">
-        <iframe id="tv-player" src="https://stream.crichd.vip/update/somoy.php" allowfullscreen="true" scrolling="no"></iframe>
+        <iframe id="tv-player" src="https://player.twitch.tv/?channel=somoytvlive&parent=watch-tv-six.vercel.app&muted=false" allowfullscreen="true" scrolling="no"></iframe>
     </div>
     
     <div class="grid">
-        <div class="btn active" onclick="play('https://stream.crichd.vip/update/somoy.php', this)">Somoy TV</div>
-        <div class="btn" onclick="play('https://stream.crichd.vip/update/ch24.php', this)">Channel 24</div>
-        <div class="btn" onclick="play('https://stream.crichd.vip/update/jamuna.php', this)">Jamuna TV</div>
-        <div class="btn" onclick="play('https://stream.crichd.vip/update/independent.php', this)">Independent</div>
-        <div class="btn" onclick="play('https://stream.crichd.vip/update/rtv.php', this)">RTV Live</div>
-        <div class="btn" onclick="play('https://stream.crichd.vip/update/dbc.php', this)">DBC News</div>
-        <div class="btn" onclick="play('https://hd.crichd.vip/update/tsports.php', this)">T Sports</div>
-        <div class="btn" onclick="play('https://hd.crichd.vip/update/gtv.php', this)">Gazi TV</div>
+        <div class="btn active" onclick="play('somoytvlive', this)">Somoy TV</div>
+        <div class="btn" onclick="play('jamunatv_live', this)">Jamuna TV</div>
+        <div class="btn" onclick="play('ch24_live_bd', this)">Channel 24</div>
+        <div class="btn" onclick="play('rtv_live_bangla', this)">RTV Live</div>
+        <div class="btn" onclick="play('independent_tv_bd', this)">Independent</div>
+        <div class="btn" onclick="play('dbcnews_live', this)">DBC News</div>
     </div>
 </div>
 
 <script>
-    function play(embedUrl, btn) {
+    function play(channelName, btn) {
         var player = document.getElementById('tv-player');
-        player.src = embedUrl;
+        // Vercel ডোমেইনের সাথে সিকিউরড কানেকশন তৈরি করবে
+        player.src = "https://player.twitch.tv/?channel=" + channelName + "&parent=watch-tv-six.vercel.app&muted=false";
         
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
