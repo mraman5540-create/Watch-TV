@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live TV</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <style>
+        body { font-family: Arial, sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 15px; }
+        .tv-container { max-width: 800px; margin: 0 auto; }
+        .video-box { position: relative; width: 100%; height: 230px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
+        @media (min-width: 600px) { .video-box { height: 450px; } }
+        video { width: 100% !important; height: 100% !important; object-fit: contain; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin-top: 20px; }
+        .btn { background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 15px 10px; text-align: center; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; }
+        .btn.active, .btn:hover { background: #38bdf8; color: #0f172a; }
+    </style>
+</head>
+<body>
+<div class="tv-container">
+    <div class="video-box"><video id="video" controls autoplay muted></video></div>
+    <div class="grid">
+        <div class="btn active" onclick="play('https://b9.f1.stream.somoynews.tv/somoytv-b9/index.m3u8', this)">Somoy TV</div>
+        <div class="btn" onclick="play('https://nexg-kp-dh-01.io.independent24.tv/independenttv/index.m3u8', this)">Independent</div>
+        <div class="btn" onclick="play('https://edge01.shadhinmusic.com/Shadhin_TV/Jamuna_TV_480p.stream/playlist.m3u8', this)">Jamuna TV</div>
+        <div class="btn" onclick="play('https://edge01.shadhinmusic.com/Shadhin_TV/Channel_i_480p.stream/playlist.m3u8', this)">Channel i</div>
+    </div>
+</div>
+<script>
+    var video = document.getElementById('video');
+    function play(url, btn) {
+        if (Hls.isSupported()) {
+            var hls = new Hls(); hls.loadSource(url); hls.attachMedia(video);
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+        }
+        if(btn) {
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
+    }
+    play('https://b9.f1.stream.somoynews.tv/somoytv-b9/index.m3u8');
+</script>
+</body>
+</html>
