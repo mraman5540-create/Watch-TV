@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Zone Live TV</title>
+    <title>Tech Zone Premium TV</title>
     <style>
         body { font-family: Arial, sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 15px; }
         .tv-container { max-width: 800px; margin: 0 auto; }
@@ -18,26 +18,25 @@
 <body>
 <div class="tv-container">
     <div class="video-box">
-        <iframe id="tv-player" src="https://www.youtube.com/embed/v_T7_t7wVb0?autoplay=1&mute=1&modestbranding=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe id="tv-player" src="https://stream.crichd.vip/update/somoy.php" allowfullscreen="true" scrolling="no"></iframe>
     </div>
     
     <div class="grid">
-        <div class="btn active" onclick="play('v_T7_t7wVb0', this)">Somoy TV</div>
-        <div class="btn" onclick="play('coYw-mB8Z50', this)">Channel 24</div>
-        <div class="btn" onclick="play('w6IWev23fU4', this)">Jamuna TV</div>
-        <div class="btn" onclick="play('5NcoCgZ_r_I', this)">DBC News</div>
-        <div class="btn" onclick="play('J6VbZf_b10s', this)">News24</div>
-        <div class="btn" onclick="play('6_rreE1k3mE', this)">RTV Live</div>
-        <div class="btn" onclick="play('g9mR8vP8b_s', this)">Independent</div>
-        <div class="btn" onclick="play('zZWhIe-wR3Y', this)">Ekattor TV</div>
+        <div class="btn active" onclick="play('https://stream.crichd.vip/update/somoy.php', this)">Somoy TV</div>
+        <div class="btn" onclick="play('https://stream.crichd.vip/update/ch24.php', this)">Channel 24</div>
+        <div class="btn" onclick="play('https://stream.crichd.vip/update/jamuna.php', this)">Jamuna TV</div>
+        <div class="btn" onclick="play('https://stream.crichd.vip/update/independent.php', this)">Independent</div>
+        <div class="btn" onclick="play('https://stream.crichd.vip/update/rtv.php', this)">RTV Live</div>
+        <div class="btn" onclick="play('https://stream.crichd.vip/update/dbc.php', this)">DBC News</div>
+        <div class="btn" onclick="play('https://hd.crichd.vip/update/tsports.php', this)">T Sports</div>
+        <div class="btn" onclick="play('https://hd.crichd.vip/update/gtv.php', this)">Gazi TV</div>
     </div>
 </div>
 
 <script>
-    function play(videoId, btn) {
+    function play(embedUrl, btn) {
         var player = document.getElementById('tv-player');
-        // বাটন ক্লিক করলে সরাসরি ভিডিও প্লে হবে ইউটিউবের লোগো ছাড়া
-        player.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&modestbranding=1&rel=0";
+        player.src = embedUrl;
         
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
