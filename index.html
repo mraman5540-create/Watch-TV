@@ -3,47 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Zone Live TV</title>
+    <title>Premium Live TV</title>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         body { font-family: Arial, sans-serif; background: #0f172a; color: #fff; margin: 0; padding: 15px; }
         .tv-container { max-width: 800px; margin: 0 auto; }
-        .video-box { position: relative; width: 100%; height: 230px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; }
+        .video-box { position: relative; width: 100%; height: 230px; background: #000; border-radius: 12px; overflow: hidden; border: 1px solid #1e293b; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
         @media (min-width: 600px) { .video-box { height: 450px; } }
-        iframe { width: 100%; height: 100%; border: none; }
+        video { width: 100% !important; height: 100% !important; object-fit: contain; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin-top: 20px; }
-        .btn { background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 12px 8px; text-align: center; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s; }
-        .btn.active, .btn:hover { background: #38bdf8; color: #0f172a; }
+        .btn { background: #1e293b; border: 1px solid #334155; color: #cbd5e1; padding: 12px 5px; text-align: center; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; transition: 0.2s; text-transform: uppercase; }
+        .btn.active, .btn:hover { background: #38bdf8; color: #0f172a; box-shadow: 0 0 10px rgba(56, 189, 248, 0.5); }
     </style>
 </head>
 <body>
 <div class="tv-container">
-    <div class="video-box">
-        <iframe id="tv-player" src="https://www.youtube.com/embed/5NcoCgZ_r_I?autoplay=1&mute=1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div>
+    <div class="video-box"><video id="video" controls autoplay muted playsinline></video></div>
     
     <div class="grid">
-        <div class="btn active" onclick="play('5NcoCgZ_r_I', this)">DBC News</div>
-        <div class="btn" onclick="play('J6VbZf_b10s', this)">News24</div>
-        <div class="btn" onclick="play('coYw-mB8Z50', this)">Channel 24</div>
-        <div class="btn" onclick="play('6_rreE1k3mE', this)">RTV Live</div>
-        <div class="btn" onclick="play('v_T7_t7wVb0', this)">Somoy TV</div>
-        <div class="btn" onclick="play('w6IWev23fU4', this)">Jamuna TV</div>
-        <div class="btn" onclick="play('g9mR8vP8b_s', this)">Independent</div>
-        <div class="btn" onclick="play('zZWhIe-wR3Y', this)">Ekattor TV</div>
-        <div class="btn" onclick="play('S-F3_G0D6Xk', this)">ATN Bangla</div>
-        <div class="btn" onclick="play('x38Y1p9y_vM', this)">Channel i</div>
+        <div class="btn active" onclick="play('https://b9.f1.stream.somoynews.tv/somoytv-b9/index.m3u8', this)">Somoy TV</div>
+        <div class="btn" onclick="play('https://nexg-kp-dh-01.io.independent24.tv/independenttv/index.m3u8', this)">Independent</div>
+        <div class="btn" onclick="play('https://edge01.shadhinmusic.com/Shadhin_TV/Jamuna_TV_480p.stream/playlist.m3u8', this)">Jamuna TV</div>
+        <div class="btn" onclick="play('https://edge01.shadhinmusic.com/Shadhin_TV/Channel_i_480p.stream/playlist.m3u8', this)">Channel i</div>
+        <div class="btn" onclick="play('https://live.channeltwentyfour.tv/c24/index.m3u8', this)">Channel 24</div>
+        <div class="btn" onclick="play('https://rtvlive.b-cdn.net/vtrack/rtvhd/playlist.m3u8', this)">RTV Live</div>
+        <div class="btn" onclick="play('https://live.atnnews.tv/hls/stream.m3u8', this)">ATN News</div>
+        <div class="btn" onclick="play('https://dhaka.bengal.stream/hls/tsports.m3u8', this)">T Sports</div>
+        <div class="btn" onclick="play('https://live.gtv.com.bd/hls/gtv.m3u8', this)">Gazi TV</div>
     </div>
 </div>
 
 <script>
-    function play(videoId, btn) {
-        var player = document.getElementById('tv-player');
-        // বাটন ক্লিক করলে আনমিউট অবস্থায় প্লে হবে
-        player.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1";
+    var video = document.getElementById('video');
+    var hls = null;
+
+    function play(url, btn) {
+        if (hls) { hls.destroy(); }
         
-        document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
+        if (Hls.isSupported()) {
+            hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() { video.play(); });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+            video.addEventListener('loadedmetadata', function() { video.play(); });
+        }
+        
+        if(btn) {
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        }
     }
+    // প্রথম চ্যানেলটি অটোমেটিক চালু হওয়ার জন্য ডিরেক্ট লিঙ্ক
+    play('https://b9.f1.stream.somoynews.tv/somoytv-b9/index.m3u8');
 </script>
 </body>
 </html>
