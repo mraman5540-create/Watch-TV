@@ -18,27 +18,26 @@
 <body>
 <div class="tv-container">
     <div class="video-box">
-        <iframe id="tv-player" src="https://bioscopelive.com/en/channel/somoy-tv" allowfullscreen="true"></iframe>
+        <iframe id="tv-player" src="https://www.youtube.com/embed/v_T7_t7wVb0?autoplay=1&mute=1&modestbranding=1&rel=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
     
     <div class="grid">
-        <div class="btn active" onclick="play('https://bioscopelive.com/en/channel/somoy-tv', this)">Somoy TV</div>
-        <div class="btn" onclick="play('https://www.jagobd.com/c/independent', this)">Independent</div>
-        <div class="btn" onclick="play('https://www.jagobd.com/c/jamunatv', this)">Jamuna TV</div>
-        <div class="btn" onclick="play('https://bioscopelive.com/en/channel/channel-i', this)">Channel i</div>
-        <div class="btn" onclick="play('https://www.jagobd.com/c/channel24', this)">Channel 24</div>
-        <div class="btn" onclick="play('https://www.jagobd.com/c/rtv', this)">RTV Live</div>
-        <div class="btn" onclick="play('https://www.jagobd.com/c/atnnews', this)">ATN News</div>
-        <div class="btn" onclick="play('https://bioscopelive.com/en/channel/ekattor-tv', this)">Ekattor TV</div>
-        <div class="btn" onclick="play('https://toffee-embed-url-placeholder.com/tsports', this)">T Sports</div>
-        <div class="btn" onclick="play('https://toffee-embed-url-placeholder.com/gtv', this)">Gazi TV</div>
+        <div class="btn active" onclick="play('v_T7_t7wVb0', this)">Somoy TV</div>
+        <div class="btn" onclick="play('coYw-mB8Z50', this)">Channel 24</div>
+        <div class="btn" onclick="play('w6IWev23fU4', this)">Jamuna TV</div>
+        <div class="btn" onclick="play('5NcoCgZ_r_I', this)">DBC News</div>
+        <div class="btn" onclick="play('J6VbZf_b10s', this)">News24</div>
+        <div class="btn" onclick="play('6_rreE1k3mE', this)">RTV Live</div>
+        <div class="btn" onclick="play('g9mR8vP8b_s', this)">Independent</div>
+        <div class="btn" onclick="play('zZWhIe-wR3Y', this)">Ekattor TV</div>
     </div>
 </div>
 
 <script>
-    function play(embedUrl, btn) {
+    function play(videoId, btn) {
         var player = document.getElementById('tv-player');
-        player.src = embedUrl;
+        // বাটন ক্লিক করলে সরাসরি ভিডিও প্লে হবে ইউটিউবের লোগো ছাড়া
+        player.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&modestbranding=1&rel=0";
         
         document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
